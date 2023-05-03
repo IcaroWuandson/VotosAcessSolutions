@@ -1,10 +1,14 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
+import 'firebase/compat/database';
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDyNWjX0_79C4feBGrne5pcqDOcFLxuFBw",
   authDomain: "sistemavotos-47217.firebaseapp.com",
+  databaseURL: "https://sistemavotos-47217-default-rtdb.firebaseio.com",
   projectId: "sistemavotos-47217",
   storageBucket: "sistemavotos-47217.appspot.com",
   messagingSenderId: "2936001825",
@@ -12,9 +16,10 @@ const firebaseConfig = {
   measurementId: "G-RENH479LKG"
 };
 
-const app = initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
-const firestore = getFirestore(app);
+const auth = firebase.auth();
+const firestore = firebase.firestore();
+const database = firebase.database();
 
-export { auth, firestore };
+export { app, auth, firestore, database };

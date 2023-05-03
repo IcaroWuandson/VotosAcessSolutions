@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { PrimaryButton, Stack, TextField, MessageBar, MessageBarType } from '@fluentui/react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../Database/firebase'
+import { Link } from 'react-router-dom';
 
 function Register() {
   const [email, setEmail] = useState('');
@@ -22,10 +23,9 @@ function Register() {
   };
 
   return (
-    <Stack tokens={{ childrenGap: 15 }} styles={{ root: { maxWidth: 300 } }}>
-        
+    <Stack horizontalAlign="center" tokens={{ childrenGap: 15 }} className="register-container">
       <h1> REGISTRE SUA CONTA</h1>
-    
+
       <TextField
         label="E-mail"
         value={email}
@@ -49,6 +49,7 @@ function Register() {
         </MessageBar>
       )}
       <PrimaryButton text="Registrar" onClick={handleRegister} />
+      <p style={{ marginTop: '20px' }}>Já tem conta? <Link to="/login">Faça seu login</Link></p>
     </Stack>
   );
 }

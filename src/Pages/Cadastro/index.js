@@ -1,57 +1,60 @@
-import { useState } from "react";
-import firebase from "firebase/compat/app";
-import "firebase/compat/database";
+import React, { useState } from 'react';
+import { Stack, TextField, PrimaryButton } from '@fluentui/react';
 
-function Cadastro() {
-  const [nome, setNome] = useState("");
-  const [data, setData] = useState("");
-  const [descricao, setDescricao] = useState("");
+function VotacaoForm() {
+  const [titulo, setTitulo] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [dataInicio, setDataInicio] = useState('');
+  const [dataFim, setDataFim] = useState('');
 
-  function handleSubmit(event) {
+  const handleTituloChange = (event) => {
+    setTitulo(event.target.value);
+  };
+
+  const handleDescricaoChange = (event) => {
+    setDescricao(event.target.value);
+  };
+
+  const handleDataInicioChange = (event) => {
+    setDataInicio(event.target.value);
+  };
+
+  const handleDataFimChange = (event) => {
+    setDataFim(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-
-    // Envie os dados para o banco de dados
-    const temasRef = firebase.database().ref().child("temas");
-    temasRef.push({
-      nome,
-      data,
-      descricao,
-    });
-
-    // Limpe o formulário após o envio
-    setNome("");
-    setData("");
-    setDescricao("");
-  }
+    // salvar votação no banco de dados
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="nome">Nome:</label>
-      <input
-        type="text"
-        id="nome"
-        value={nome}
-        onChange={(event) => setNome(event.target.value)}
+    <Stack tokens={{ childrenGap: 15 }}>
+      <TextField
+        label="Título"
+        value={titulo}
+        onChange={handleTituloChange}
       />
-
-      <label htmlFor="data">Data:</label>
-      <input
-        type="text"
-        id="data"
-        value={data}
-        onChange={(event) => setData(event.target.value)}
-      />
-
-      <label htmlFor="descricao">Descrição:</label>
-      <textarea
-        id="descricao"
+      <TextField
+        label="Descrição"
         value={descricao}
-        onChange={(event) => setDescricao(event.target.value)}
+        onChange={handleDescricaoChange}
       />
-
-      <button type="submit">Cadastrar Tema</button>
-    </form>
+      <TextField
+        label="Data de início"
+        type="datetime-local"
+        value={dataInicio}
+        onChange={handleDataInicioChange}
+      />
+      <TextField
+        label="Data de fim"
+        type="datetime-local"
+        value={dataFim}
+        onChange={handleDataFimChange}
+      />
+      <PrimaryButton onClick={handleSubmit}>Salvar</PrimaryButton>
+    </Stack>
   );
 }
 
-export default Cadastro;
+export default VotacaoForm;

@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Stack, Text } from '@fluentui/react';
+import { Stack, Text, PrimaryButton } from '@fluentui/react';
 import { auth } from '../../Database/firebase';
 import firebase from 'firebase/compat/app';
 import 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const navigate = useNavigate();
@@ -53,13 +54,26 @@ function Home() {
     <Stack tokens={{ childrenGap: 15 }}>
       <Text variant="xxLarge">Bem-vindo à Home Page</Text>
       {user && (
-        <>
+        <Stack horizontalAlign="center" tokens={{ childrenGap: 15 }}>
           <Text variant="large">Olá, {user.email}!</Text>
-          <button onClick={handleLogout}>Sair</button>
-        </>
+          <PrimaryButton size="small" onClick={handleLogout}>Sair</PrimaryButton>
+        </Stack>
       )}
       {!user && <Text variant="large">Você precisa fazer login para acessar esta página.</Text>}
-      
+    
+      <Link to="/cadastro-votacao">
+        <PrimaryButton text="Cadastrar Votação" className="ms-Button--primary" />
+      </Link>
+
+      <Link to="/resultados">
+        <PrimaryButton text="Exibir Resultados" className="ms-Button--primary" />
+      </Link>
+
+      <Link to="/admin">
+        <PrimaryButton text="Administração" className="ms-Button--primary" />
+      </Link>
+
+
     </Stack>
   );
 }
